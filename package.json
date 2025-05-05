@@ -1,0 +1,31 @@
+{
+  "name": "recipe-api",
+  "version": "1.0.0",
+  "description": "recipe app rest api",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chrstjan/Recipe-API.git"
+  },
+  "author": "Chrstjan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Chrstjan/Recipe-API/issues"
+  },
+  "homepage": "https://github.com/Chrstjan/Recipe-API#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "csv-parser": "^3.2.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "fs": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.1",
+    "path": "^0.12.7",
+    "sequelize": "^6.37.7"
+  }
+}
