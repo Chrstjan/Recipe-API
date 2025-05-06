@@ -6,9 +6,11 @@ import { User } from "../models/user.model.js";
 import { Category } from "../models/category.model.js";
 import { Cuisine } from "../models/cuisine.model.js";
 import { Difficulty } from "../models/difficulty.model.js";
+import { Tag } from "../models/tag.model.js";
 import { Recipe } from "../models/recipe.model.js";
 import { RecipeIngredient } from "../models/recipe_ingredient.model.js";
 import { RecipeInstruction } from "../models/recipe_instruction.model.js";
+import { RecipeTag } from "../models/recipe_tag.model.js";
 import { Image } from "../models/image.model.js";
 import { ImageRel } from "../models/image_rel.model.js";
 
@@ -39,9 +41,11 @@ dbController.get("/seed", async (req, res) => {
       { file: "category.csv", model: Category },
       { file: "cuisine.csv", model: Cuisine },
       { file: "difficulty.csv", model: Difficulty },
+      { file: "tag.csv", model: Tag },
       { file: "recipe.csv", model: Recipe },
       { file: "recipe_ingredient.csv", model: RecipeIngredient },
       { file: "recipe_instruction.csv", model: RecipeInstruction },
+      { file: "recipe_tag.csv", model: RecipeTag },
       { file: "image.csv", model: Image },
       { file: "image_rel.csv", model: ImageRel },
     ];

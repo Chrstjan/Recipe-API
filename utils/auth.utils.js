@@ -41,7 +41,7 @@ const Authenticate = async (req, res) => {
 
   try {
     const user = await User.findOne({
-      attributes: ["id", "firstname", "lastname", "password"],
+      attributes: ["id", "password", "email", "username"],
       where: { email: username },
     });
 
@@ -61,7 +61,7 @@ const Authenticate = async (req, res) => {
     // Send tokens and user data to the client
     res.json({
       access_token,
-      user: { id: user.id, firstname: user.firstname, lastname: user.lastname },
+      user: { id: user.id, email: user.email, username: user.username },
     });
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message });
