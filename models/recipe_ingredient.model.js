@@ -1,9 +1,10 @@
 import { sequelize } from "../config/sequelize.config.js";
 import { DataTypes, Model } from "sequelize";
+import { Recipe } from "./recipe.model.js";
 
-export class Cuisine extends Model {}
+export class RecipeIngredient extends Model {}
 
-Cuisine.init(
+RecipeIngredient.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,21 +12,27 @@ Cuisine.init(
       allowNull: false,
       primaryKey: true,
     },
+    recipe_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Recipe,
+        key: "id",
+      },
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    slug: {
+    amount: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: "cuisine",
+    modelName: "recipe_ingredient",
     underscored: true,
     freezeTableName: true,
-    timestamps: true,
-    indexes: [{ unique: true, fields: ["name", "slug"] }],
   }
 );

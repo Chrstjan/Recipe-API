@@ -2,7 +2,15 @@ import express from "express";
 import sequelize from "../config/sequelize.config.js";
 import { errorResponse, successResponse } from "../utils/response.utils.js";
 import { seedFromCsv } from "../utils/seed.utils.js";
+import { User } from "../models/user.model.js";
 import { Category } from "../models/category.model.js";
+import { Cuisine } from "../models/cuisine.model.js";
+import { Difficulty } from "../models/difficulty.model.js";
+import { Recipe } from "../models/recipe.model.js";
+import { RecipeIngredient } from "../models/recipe_ingredient.model.js";
+import { RecipeInstruction } from "../models/recipe_instruction.model.js";
+import { Image } from "../models/image.model.js";
+import { ImageRel } from "../models/image_rel.model.js";
 
 export const dbController = express.Router();
 
@@ -26,7 +34,17 @@ dbController.get("/sync", async (req, res) => {
 
 dbController.get("/seed", async (req, res) => {
   try {
-    const files_to_seed = [{ file: "category.csv", model: Category }];
+    const files_to_seed = [
+      { file: "user.csv", model: User },
+      { file: "category.csv", model: Category },
+      { file: "cuisine.csv", model: Cuisine },
+      { file: "difficulty.csv", model: Difficulty },
+      { file: "recipe.csv", model: Recipe },
+      { file: "recipe_ingredient.csv", model: RecipeIngredient },
+      { file: "recipe_instruction.csv", model: RecipeInstruction },
+      { file: "image.csv", model: Image },
+      { file: "image_rel.csv", model: ImageRel },
+    ];
 
     const files_seeded = [];
 

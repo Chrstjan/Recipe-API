@@ -1,0 +1,3 @@
+"id","filename","description","is_main"
+1,"https://picsum.photos/200","dummy image",true
+2,"https://picsum.photos/200?random=2","dummy image",true

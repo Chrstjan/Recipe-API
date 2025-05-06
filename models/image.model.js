@@ -1,9 +1,9 @@
 import { sequelize } from "../config/sequelize.config.js";
 import { DataTypes, Model } from "sequelize";
 
-export class Cuisine extends Model {}
+export class Image extends Model {}
 
-Cuisine.init(
+Image.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,21 +11,24 @@ Cuisine.init(
       allowNull: false,
       primaryKey: true,
     },
-    name: {
-      type: DataTypes.STRING,
+    filename: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
-    slug: {
+    description: {
       type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "No description provided",
+    },
+    is_main: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: "cuisine",
+    modelName: "image",
     underscored: true,
     freezeTableName: true,
-    timestamps: true,
-    indexes: [{ unique: true, fields: ["name", "slug"] }],
   }
 );

@@ -1,0 +1,3 @@
+"id","user_id","name","slug","description","category_id","cuisine_id","prep_time","cook_time","servings","calories","carbs","fat","protein","difficulty_id","rating"
+1,1,"Spaghetti Bolognese","spaghetti-bolognese","A classic Italian pasta dish with rich meat sauce.",1,1,15,45,4,600,70,20,30,2,4.5
+2,1,"Chicken Tikka Masala","chicken-tikka-masala","Spiced Indian chicken curry in a creamy tomato sauce.",1,2,20,30,4,500,40,25,35,3,4.7

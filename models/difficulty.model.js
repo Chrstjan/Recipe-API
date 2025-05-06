@@ -1,9 +1,9 @@
 import { sequelize } from "../config/sequelize.config.js";
 import { DataTypes, Model } from "sequelize";
 
-export class Cuisine extends Model {}
+export class Difficulty extends Model {}
 
-Cuisine.init(
+Difficulty.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -22,10 +22,9 @@ Cuisine.init(
   },
   {
     sequelize,
-    modelName: "cuisine",
+    modelName: "difficulty",
     underscored: true,
     freezeTableName: true,
-    timestamps: true,
     indexes: [{ unique: true, fields: ["name", "slug"] }],
   }
 );
