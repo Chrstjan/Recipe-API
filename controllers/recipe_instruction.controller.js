@@ -32,3 +32,31 @@ recipeInstructionController.post(`/${url}`, Authorize, async (req, res) => {
         errorResponse(res, `Error in creating recipe instruction: ${err.message}`, err);
     }
 })
+
+recipeInstructionController.delete(`/${url}/:recipeId/:id`, Authorize, async (req, res) => {
+    try {
+        const userId = await getUserFromToken(req, res);
+        const { recipeId, id } = req.params;
+
+        const recipe = await Recipe.findOne({
+            where: { user_id: userId }
+        });
+
+        if (!recipe) {
+            errorResponse(res, `Recipe does not belong to user with id: ${userId}`);
+        }
+
+        const result = await model.destroy({
+            where: { id: id, recipe_id: recipeId }
+        })
+
+        if (!result) {
+            errorResponse(res, `Error in deleting instruction with id: ${id}`);
+        }
+
+        successResponse(res, `Instruction with id: ${id} deleted successfully`);
+    }
+    catch (err) {
+        errorResponse(res, `Error in deleting instruction: ${err.message}`, err);
+    }
+})
