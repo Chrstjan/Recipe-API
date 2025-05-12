@@ -73,6 +73,12 @@ export const setRelations = () => {
     onDelete: "CASCADE",
   });
 
+  // Favorite / Recipe relation
+  Favorite.belongsTo(Recipe, {
+    foreignKey: "recipe_id",
+    as: "recipe",
+  });
+
   //#endregion recipe relations
 
   //#region ingredients / instructions / tags

@@ -15,6 +15,7 @@ import { recipeTagController } from "./controllers/recipe_tag.controller.js";
 import { imageController } from "./controllers/image.controller.js";
 import { imageRelController } from "./controllers/image_rel.controller.js";
 import { commentController } from "./controllers/comment.controller.js";
+import { favoriteController } from "./controllers/favorite.controller.js";
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -44,7 +45,8 @@ app.use(
   recipeTagController,
   imageController,
   imageRelController,
-  commentController
+  commentController,
+  favoriteController
 );
 
 app.listen(port, () => {

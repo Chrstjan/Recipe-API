@@ -39,7 +39,7 @@ commentController.patch(`/${url}`, Authorize, async (req, res) => {
     data.user_id = userId;
 
     const [updated] = await model.update(data, {
-      where: { user_id: userId },
+      where: { id: data.id, user_id: userId },
     });
 
     if (!updated) {

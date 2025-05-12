@@ -2,7 +2,17 @@ import express from "express";
 import { User as model } from "../models/user.model.js";
 import { Authorize, getUserFromToken } from "../utils/auth.utils.js";
 import { successResponse, errorResponse } from "../utils/response.utils.js";
+import { getQueryAttributes, getQueryLimit } from "../utils/query.utils.js";
 import { Recipe } from "../models/recipe.model.js";
+import { Category } from "../models/category.model.js";
+import { Cuisine } from "../models/cuisine.model.js";
+import { Difficulty } from "../models/difficulty.model.js";
+import { RecipeTag } from "../models/recipe_tag.model.js";
+import { Tag } from "../models/tag.model.js";
+import { ImageRel } from "../models/image_rel.model.js";
+import { Image } from "../models/image.model.js";
+import { Comment } from "../models/comment.model.js";
+import { Favorite } from "../models/favorite.model.js";
 
 export const userController = express.Router();
 const url = "user";
@@ -18,6 +28,91 @@ userController.get(`/${url}`, Authorize, async (req, res) => {
         {
           model: Recipe,
           as: "recipes",
+          attributes: getQueryAttributes(req.query, "name,slug,description"),
+          limit: getQueryLimit(req.query),
+          include: [
+            {
+              model: Category,
+              as: "category",
+              attributes: getQueryAttributes({}, "name,slug"),
+            },
+            {
+              model: Cuisine,
+              as: "cuisine",
+              attributes: getQueryAttributes(req.query, "name,slug"),
+            },
+            {
+              model: Difficulty,
+              as: "difficulty",
+              attributes: getQueryAttributes(req.query, "name,slug"),
+            },
+            {
+              model: RecipeTag,
+              as: "tags",
+              attributes: getQueryAttributes({}, "recipe_id"),
+              include: [
+                {
+                  model: Tag,
+                  as: "tag",
+                  attributes: getQueryAttributes(req.query, "name,slug"),
+                },
+              ],
+            },
+            {
+              model: ImageRel,
+              as: "images",
+              attributes: getQueryAttributes({}, "recipe_id"),
+              include: [
+                {
+                  model: Image,
+                  as: "image",
+                  attributes: getQueryAttributes(
+                    {},
+                    "filename, description, is_main"
+                  ),
+                },
+              ],
+            },
+          ],
+        },
+        {
+          model: Comment,
+          as: "comments",
+          attributes: getQueryAttributes(
+            req.query,
+            "recipe_id,subject,content,createdAt"
+          ),
+          limit: getQueryLimit(req.query),
+        },
+        {
+          model: Favorite,
+          as: "favorites",
+          attributes: getQueryAttributes(req.query, "id,recipe_id"),
+          limit: getQueryLimit(req.query),
+          include: [
+            {
+              model: Recipe,
+              as: "recipe",
+              attributes: getQueryAttributes({}, "name,slug"),
+              include: [
+                {
+                  model: ImageRel,
+                  as: "images",
+                  attributes: getQueryAttributes({}, "recipe_id"),
+                  include: [
+                    {
+                      model: Image,
+                      as: "image",
+                      attributes: getQueryAttributes(
+                        {},
+                        "filename, description, is_main"
+                      ),
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
       ],
     });

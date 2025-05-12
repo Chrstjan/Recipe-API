@@ -1,3 +1,10 @@
 "id","user_id","name","slug","description","category_id","cuisine_id","prep_time","cook_time","servings","calories","carbs","fat","protein","difficulty_id","rating"
 1,1,"Spaghetti Bolognese","spaghetti-bolognese","A classic Italian pasta dish with rich meat sauce.",1,1,15,45,4,600,70,20,30,2,4.5
-2,1,"Chicken Tikka Masala","chicken-tikka-masala","Spiced Indian chicken curry in a creamy tomato sauce.",1,2,20,30,4,500,40,25,35,3,4.7
+2,1,"Chicken Tikka Masala","chicken-tikka-masala","Spiced Indian chicken curry in a creamy tomato sauce.",2,2,20,30,4,500,40,25,35,3,4.7
+3,1,"Tacos al Pastor","tacos-al-pastor","Flavorful Mexican pork tacos with pineapple.",3,3,25,20,4,550,50,22,28,5,4.3
+4,1,"Sweet and Sour Chicken","sweet-sour-chicken","Classic Chinese dish with a tangy sauce.",4,4,20,25,4,520,55,18,26,1,4.6
+5,1,"Pad Thai","pad-thai","Popular Thai noodle stir-fry with shrimp.",5,5,15,15,2,480,45,15,22,6,4.4
+6,1,"Sushi Rolls","sushi-rolls","Fresh Japanese sushi rolls with salmon and avocado.",6,6,45,0,4,400,35,10,20,4,4.9
+7,1,"Coq au Vin","coq-au-vin","Traditional French chicken stew with wine.",7,7,30,60,6,700,30,28,40,7,4.2
+8,1,"Greek Salad","greek-salad","Light salad with feta, olives, and cucumber.",8,8,10,0,2,300,15,20,10,1,4.8
+9,1,"Cheeseburger","cheeseburger","American-style cheeseburger with all the fixings.",9,9,15,10,1,650,45,35,25,9,4.1

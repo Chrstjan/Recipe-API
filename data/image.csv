@@ -1,3 +1,14 @@
 "id","user_id","filename","description","is_main"
 1,1,"https://picsum.photos/200","dummy image",true
 2,1,"https://picsum.photos/200?random=2","dummy image",true
+3,1,"https://picsum.photos/200?random=3","dummy image",false
+4,1,"https://picsum.photos/200?random=4","dummy image",false
+5,1,"https://picsum.photos/200?random=5","dummy image",true
+6,1,"https://picsum.photos/200?random=6","dummy image",true
+7,1,"https://picsum.photos/200?random=7","dummy image",true
+8,1,"https://picsum.photos/200?random=8","dummy image",true
+9,1,"https://picsum.photos/200?random=9","dummy image",true
+10,1,"https://picsum.photos/200?random=10","dummy image",true
+11,1,"https://picsum.photos/200?random=11","dummy image",true
+12,1,"https://picsum.photos/200?random=12","dummy image",true
+13,1,"https://picsum.photos/200?random=13","dummy image",true
