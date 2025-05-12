@@ -1,45 +1,81 @@
-import express from "express"
-import { Tag as model } from "../models/tag.model.js"
+import express from "express";
+import { Tag as model } from "../models/tag.model.js";
 import { getQueryAttributes, getQueryLimit } from "../utils/query.utils.js";
-import { successResponse, errorResponse } from "../utils/response.utils.js"
+import { successResponse, errorResponse } from "../utils/response.utils.js";
+import { Recipe } from "../models/recipe.model.js";
+import { RecipeTag } from "../models/recipe_tag.model.js";
+import { ImageRel } from "../models/image_rel.model.js";
+import { Image } from "../models/image.model.js";
 
 export const tagController = express.Router();
-const url = "tags"
+const url = "tags";
 
 tagController.get(`/${url}`, async (req, res) => {
-    try {
-        const result = await model.findAll({
-            attributes: getQueryAttributes(req.query, "id,name,slug"),
-            limit: getQueryLimit(req.query)
-        });
+  try {
+    const result = await model.findAll({
+      attributes: getQueryAttributes(req.query, "name,slug"),
+      limit: getQueryLimit(req.query),
+    });
 
-        if (!result || result.length === 0) {
-            errorResponse(res, 'No tags found', 404);
-        }
+    if (!result || result.length === 0) {
+      errorResponse(res, "No tags found", 404);
+    }
 
-        successResponse(res, result);
-    }
-    catch (err) {
-        errorResponse(res, `Error fetching tags: ${err.message}`, err)
-    }
-})
+    successResponse(res, result);
+  } catch (err) {
+    errorResponse(res, `Error fetching tags: ${err.message}`, err);
+  }
+});
 
 tagController.get(`/${url}/:slug`, async (req, res) => {
-    try {
-        const { slug } = req.params;
+  try {
+    const { slug } = req.params;
 
-        const result = await model.findOne({
-            where: { slug: slug },
-            attributes: getQueryAttributes(req.query, "id,name,slug"),
-        })
+    const result = await model.findOne({
+      where: { slug: slug },
+      attributes: getQueryAttributes(req.query, "name,slug"),
+      include: [
+        {
+          model: RecipeTag,
+          as: "tags",
+          attributes: getQueryAttributes({}, "tag_id"),
+          include: [
+            {
+              model: Recipe,
+              as: "recipe",
+              attributes: getQueryAttributes(
+                req.query,
+                "name,slug,description,prep_time,cook_time,servings,carbs,protein,calories"
+              ),
+              include: [
+                {
+                  model: ImageRel,
+                  as: "images",
+                  attributes: getQueryAttributes({}, "recipe_id"),
+                  include: [
+                    {
+                      model: Image,
+                      as: "image",
+                      attributes: getQueryAttributes(
+                        {},
+                        "filename, description, is_main"
+                      ),
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
 
-        if (!result) {
-            errorResponse(res, `Could not find tag with slug: ${slug}`, 404);
-        }
-
-        successResponse(res, result);
+    if (!result) {
+      errorResponse(res, `Could not find tag with slug: ${slug}`, 404);
     }
-    catch (err) {
-        errorResponse(res, `Error fetching tag: ${err.message}`, err)
-    }
-})
+
+    successResponse(res, result);
+  } catch (err) {
+    errorResponse(res, `Error fetching tag: ${err.message}`, err);
+  }
+});

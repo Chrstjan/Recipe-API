@@ -12,6 +12,9 @@ import { recipeController } from "./controllers/recipe.controller.js";
 import { recipeIngredientController } from "./controllers/recipe_ingredient.controller.js";
 import { recipeInstructionController } from "./controllers/recipe_instruction.controller.js";
 import { recipeTagController } from "./controllers/recipe_tag.controller.js";
+import { imageController } from "./controllers/image.controller.js";
+import { imageRelController } from "./controllers/image_rel.controller.js";
+import { commentController } from "./controllers/comment.controller.js";
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -27,7 +30,22 @@ app.get("/", async (req, res) => {
   res.send({ message: "recipe app api" });
 });
 
-app.use(dbController, authController, userController, categoryController, cuisineController, difficultyController, tagController, recipeController, recipeIngredientController, recipeInstructionController, recipeTagController);
+app.use(
+  dbController,
+  authController,
+  userController,
+  categoryController,
+  cuisineController,
+  difficultyController,
+  tagController,
+  recipeController,
+  recipeIngredientController,
+  recipeInstructionController,
+  recipeTagController,
+  imageController,
+  imageRelController,
+  commentController
+);
 
 app.listen(port, () => {
   console.log(`Server live on http://localhost:${port}`);

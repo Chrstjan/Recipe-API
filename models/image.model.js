@@ -1,5 +1,6 @@
 import { sequelize } from "../config/sequelize.config.js";
 import { DataTypes, Model } from "sequelize";
+import { User } from "./user.model.js";
 
 export class Image extends Model {}
 
@@ -10,6 +11,14 @@ Image.init(
       autoIncrement: true,
       allowNull: false,
       primaryKey: true,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: User,
+        key: "id",
+      },
     },
     filename: {
       type: DataTypes.TEXT,

@@ -108,10 +108,10 @@ export const setRelations = () => {
     onDelete: "CASCADE",
   });
 
-  // Tag.hasMany(RecipeTag, {
-  //   foreignKey: "tag_id",
-  //   as: "tags"
-  // })
+  Tag.hasOne(RecipeTag, {
+    foreignKey: "tag_id",
+    as: "tags",
+  });
 
   // Recipe Tag / Recipe relation
   RecipeTag.belongsTo(Recipe, {
@@ -152,9 +152,31 @@ export const setRelations = () => {
     onDelete: "CASCADE",
   });
 
+  // Image / User relation
+  Image.belongsTo(User, {
+    foreignKey: "user_id",
+    as: "user",
+    onDelete: "CASCADE",
+  });
+
+  User.hasMany(Image, {
+    foreignKey: "user_id",
+    as: "images",
+  });
+
   //#endregion user relations
 
   // Recipe / Image relation
-  // Recipe.belongsTo(Image, { through: ImageRel });
-  // Image.belongsTo(Recipe, { through: ImageRel });
+  ImageRel.belongsTo(Recipe, {
+    as: "recipe",
+  });
+
+  Recipe.hasMany(ImageRel, {
+    as: "images",
+  });
+
+  ImageRel.belongsTo(Image, {
+    foreignKey: "image_id",
+    as: "image",
+  });
 };
