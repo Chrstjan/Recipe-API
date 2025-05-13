@@ -49,7 +49,7 @@ imageRelController.delete(
       const userId = await getUserFromToken(req, res);
       const { recipeId, id } = req.params;
 
-      const recipe = await Image.findOne({
+      const recipe = await Recipe.findOne({
         where: { id: recipeId, user_id: userId },
       });
 

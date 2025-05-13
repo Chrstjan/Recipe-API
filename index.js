@@ -14,6 +14,7 @@ import { recipeInstructionController } from "./controllers/recipe_instruction.co
 import { recipeTagController } from "./controllers/recipe_tag.controller.js";
 import { imageController } from "./controllers/image.controller.js";
 import { imageRelController } from "./controllers/image_rel.controller.js";
+import { searchController } from "./controllers/search.controller.js";
 import { commentController } from "./controllers/comment.controller.js";
 import { favoriteController } from "./controllers/favorite.controller.js";
 
@@ -45,6 +46,7 @@ app.use(
   recipeTagController,
   imageController,
   imageRelController,
+  searchController,
   commentController,
   favoriteController
 );
