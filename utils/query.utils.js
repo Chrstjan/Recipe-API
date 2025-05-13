@@ -21,11 +21,11 @@ export const getQueryOrder = (query) => {
 };
 
 /**
- * Gets query limit from request or standard(1000)
+ * Gets query limit from request or standard(10)
  * @param {Object} req.query object
  * @returns {number} query limit amount
  */
 export const getQueryLimit = (query) => {
   const { limit } = query;
-  return Number(limit) || 1000;
+  return Number(limit) || 10;
 };
