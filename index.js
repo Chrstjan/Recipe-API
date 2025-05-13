@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import { dbController } from "./controllers/db.controller.js";
 import { authController } from "./controllers/auth.controller.js";
 import { setRelations } from "./models/relations.js";
@@ -19,6 +20,11 @@ import { commentController } from "./controllers/comment.controller.js";
 import { favoriteController } from "./controllers/favorite.controller.js";
 
 const app = express();
+const corsOptions = {
+  origin: "*",
+};
+
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
