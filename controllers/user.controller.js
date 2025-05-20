@@ -119,7 +119,7 @@ userController.get(`/${url}`, Authorize, async (req, res) => {
           as: "images",
           attributes: getQueryAttributes(
             req.query,
-            "filename, description, is_main"
+            "id,user_id,filename, description, is_main"
           ),
           limit: getQueryLimit(req.query),
         },
