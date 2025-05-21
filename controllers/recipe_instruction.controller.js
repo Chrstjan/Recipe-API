@@ -1,5 +1,5 @@
 import express from "express";
-import { RecipeIngredient as model } from "../models/recipe_ingredient.model.js";
+import { RecipeInstruction as model } from "../models/recipe_instruction.model.js";
 import { Authorize, getUserFromToken } from "../utils/auth.utils.js";
 import { successResponse, errorResponse } from "../utils/response.utils.js";
 import { Recipe } from "../models/recipe.model.js";
