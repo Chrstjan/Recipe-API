@@ -64,7 +64,7 @@ recipeController.get(`/${url}`, async (req, res) => {
               as: "image",
               attributes: getQueryAttributes(
                 {},
-                "filename, description, is_main"
+                "id,filename, description, is_main"
               ),
             },
           ],
@@ -153,12 +153,12 @@ recipeController.get(`/${url}/:slug`, async (req, res) => {
         {
           model: Comment,
           as: "comments",
-          attributes: getQueryAttributes({}, "subject,content"),
+          attributes: getQueryAttributes({}, "id,subject,content"),
           include: [
             {
               model: User,
               as: "user",
-              attributes: getQueryAttributes({}, "username,avatar"),
+              attributes: getQueryAttributes({}, "id,username,avatar"),
             },
           ],
         },

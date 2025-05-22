@@ -22,29 +22,29 @@ userController.get(`/${url}`, Authorize, async (req, res) => {
     const userId = await getUserFromToken(req, res);
 
     const result = await model.findOne({
-      attributes: ["username", "email", "avatar"],
+      attributes: ["id", "username", "email", "avatar"],
       where: { id: userId },
       include: [
         {
           model: Recipe,
           as: "recipes",
-          attributes: getQueryAttributes(req.query, "name,slug,description"),
+          attributes: getQueryAttributes(req.query, "id,name,slug,description"),
           limit: getQueryLimit(req.query),
           include: [
             {
               model: Category,
               as: "category",
-              attributes: getQueryAttributes({}, "name,slug"),
+              attributes: getQueryAttributes({}, "id,name,slug"),
             },
             {
               model: Cuisine,
               as: "cuisine",
-              attributes: getQueryAttributes(req.query, "name,slug"),
+              attributes: getQueryAttributes(req.query, "id,name,slug"),
             },
             {
               model: Difficulty,
               as: "difficulty",
-              attributes: getQueryAttributes(req.query, "name,slug"),
+              attributes: getQueryAttributes(req.query, "id,name,slug"),
             },
             {
               model: RecipeTag,
@@ -61,14 +61,14 @@ userController.get(`/${url}`, Authorize, async (req, res) => {
             {
               model: ImageRel,
               as: "images",
-              attributes: getQueryAttributes({}, "recipe_id"),
+              attributes: getQueryAttributes({}, "id,recipe_id"),
               include: [
                 {
                   model: Image,
                   as: "image",
                   attributes: getQueryAttributes(
                     {},
-                    "filename, description, is_main"
+                    "id,filename, description, is_main"
                   ),
                 },
               ],
@@ -80,7 +80,7 @@ userController.get(`/${url}`, Authorize, async (req, res) => {
           as: "comments",
           attributes: getQueryAttributes(
             req.query,
-            "recipe_id,subject,content,createdAt"
+            "id,recipe_id,subject,content,createdAt"
           ),
           limit: getQueryLimit(req.query),
         },
@@ -93,19 +93,19 @@ userController.get(`/${url}`, Authorize, async (req, res) => {
             {
               model: Recipe,
               as: "recipe",
-              attributes: getQueryAttributes({}, "name,slug"),
+              attributes: getQueryAttributes({}, "id,name,slug"),
               include: [
                 {
                   model: ImageRel,
                   as: "images",
-                  attributes: getQueryAttributes({}, "recipe_id"),
+                  attributes: getQueryAttributes({}, "id,recipe_id"),
                   include: [
                     {
                       model: Image,
                       as: "image",
                       attributes: getQueryAttributes(
                         {},
-                        "filename, description, is_main"
+                        "id,filename, description, is_main"
                       ),
                     },
                   ],

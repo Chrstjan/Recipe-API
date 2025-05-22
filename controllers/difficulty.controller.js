@@ -39,7 +39,7 @@ difficultyController.get(`/${url}/:slug`, async (req, res) => {
           as: "recipes",
           attributes: getQueryAttributes(
             req.query,
-            "name,slug,description,prep_time,cook_time,servings,carbs,protein,calories"
+            "id,name,slug,description,prep_time,cook_time,servings,carbs,protein,calories"
           ),
           limit: getQueryLimit(req.query),
           include: [
