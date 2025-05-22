@@ -20,6 +20,7 @@ ImageRel.init(
         model: Image,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
     recipe_id: {
       type: DataTypes.INTEGER,
@@ -28,6 +29,7 @@ ImageRel.init(
         model: Recipe,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
   },
   {

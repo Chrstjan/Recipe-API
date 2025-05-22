@@ -20,6 +20,7 @@ RecipeTag.init(
         model: Recipe,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
     tag_id: {
       type: DataTypes.INTEGER,
@@ -28,6 +29,7 @@ RecipeTag.init(
         model: Tag,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
   },
   {

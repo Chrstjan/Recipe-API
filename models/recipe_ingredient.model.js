@@ -19,6 +19,7 @@ RecipeIngredient.init(
         model: Recipe,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
     name: {
       type: DataTypes.STRING,

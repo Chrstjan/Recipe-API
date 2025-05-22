@@ -20,6 +20,7 @@ Comment.init(
         model: User,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
     recipe_id: {
       type: DataTypes.INTEGER,
@@ -28,6 +29,7 @@ Comment.init(
         model: Recipe,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
     subject: {
       type: DataTypes.STRING,

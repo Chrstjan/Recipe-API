@@ -22,6 +22,7 @@ Recipe.init(
         model: User,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
     name: {
       type: DataTypes.STRING,
@@ -42,6 +43,7 @@ Recipe.init(
         model: Category,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
     cuisine_id: {
       type: DataTypes.INTEGER,
@@ -50,6 +52,7 @@ Recipe.init(
         model: Cuisine,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
     prep_time: {
       type: DataTypes.INTEGER,
@@ -86,6 +89,7 @@ Recipe.init(
         model: Difficulty,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
     rating: {
       type: DataTypes.FLOAT,

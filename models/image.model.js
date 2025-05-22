@@ -19,6 +19,7 @@ Image.init(
         model: User,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
     filename: {
       type: DataTypes.TEXT,

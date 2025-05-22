@@ -19,6 +19,7 @@ RecipeInstruction.init(
         model: Recipe,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
     step: {
       type: DataTypes.STRING,

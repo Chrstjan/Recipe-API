@@ -20,6 +20,7 @@ Favorite.init(
         model: User,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
     recipe_id: {
       type: DataTypes.INTEGER,
@@ -28,6 +29,7 @@ Favorite.init(
         model: Recipe,
         key: "id",
       },
+      onDelete: "CASCADE",
     },
   },
   { sequelize, modelName: "favorite", underscored: true, freezeTableName: true }
