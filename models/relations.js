@@ -32,39 +32,46 @@ export const setRelations = () => {
   Recipe.belongsTo(Category, {
     foreignKey: "category_id",
     as: "category",
+    onDelete: "CASCADE",
   });
 
   Category.hasMany(Recipe, {
     foreignKey: "category_id",
     as: "recipes",
+    onDelete: "CASCADE",
   });
 
   // Recipe / Cuisine relation
   Recipe.belongsTo(Cuisine, {
     foreignKey: "cuisine_id",
     as: "cuisine",
+    onDelete: "CASCADE",
   });
 
   Cuisine.hasMany(Recipe, {
     foreignKey: "cuisine_id",
     as: "recipes",
+    onDelete: "CASCADE",
   });
 
   // Recipe / Difficulty relation
   Recipe.belongsTo(Difficulty, {
     foreignKey: "difficulty_id",
     as: "difficulty",
+    onDelete: "CASCADE",
   });
 
   Difficulty.hasMany(Recipe, {
     foreignKey: "difficulty_id",
     as: "recipes",
+    onDelete: "CASCADE",
   });
 
   // Comment / Recipe relation
   Comment.belongsTo(Recipe, {
     foreignKey: "recipe_id",
     as: "recipe",
+    onDelete: "CASCADE",
   });
 
   Recipe.hasMany(Comment, {
@@ -77,6 +84,7 @@ export const setRelations = () => {
   Favorite.belongsTo(Recipe, {
     foreignKey: "recipe_id",
     as: "recipe",
+    onDelete: "CASCADE",
   });
 
   //#endregion recipe relations
@@ -87,6 +95,7 @@ export const setRelations = () => {
   RecipeIngredient.belongsTo(Recipe, {
     foreignKey: "recipe_id",
     as: "recipe",
+    onDelete: "CASCADE",
   });
 
   Recipe.hasMany(RecipeIngredient, {
@@ -99,6 +108,7 @@ export const setRelations = () => {
   RecipeInstruction.belongsTo(Recipe, {
     foreignKey: "recipe_id",
     as: "recipe",
+    onDelete: "CASCADE",
   });
 
   Recipe.hasMany(RecipeInstruction, {
@@ -117,17 +127,20 @@ export const setRelations = () => {
   Tag.hasOne(RecipeTag, {
     foreignKey: "tag_id",
     as: "tags",
+    onDelete: "CASCADE",
   });
 
   // Recipe Tag / Recipe relation
   RecipeTag.belongsTo(Recipe, {
     foreignKey: "recipe_id",
     as: "recipe",
+    onDelete: "CASCADE",
   });
 
   Recipe.hasMany(RecipeTag, {
     foreignKey: "recipe_id",
     as: "tags",
+    onDelete: "CASCADE",
   });
 
   //#endregion ingredients / instructions / tags
@@ -138,6 +151,7 @@ export const setRelations = () => {
   Favorite.belongsTo(User, {
     foreignKey: "user_id",
     as: "user",
+    onDelete: "CASCADE",
   });
 
   User.hasMany(Favorite, {
@@ -150,6 +164,7 @@ export const setRelations = () => {
   Comment.belongsTo(User, {
     foreignKey: "user_id",
     as: "user",
+    onDelete: "CASCADE",
   });
 
   User.hasMany(Comment, {
@@ -168,6 +183,7 @@ export const setRelations = () => {
   User.hasMany(Image, {
     foreignKey: "user_id",
     as: "images",
+    onDelete: "CASCADE",
   });
 
   //#endregion user relations
@@ -175,14 +191,17 @@ export const setRelations = () => {
   // Recipe / Image relation
   ImageRel.belongsTo(Recipe, {
     as: "recipe",
+    onDelete: "CASCADE",
   });
 
   Recipe.hasMany(ImageRel, {
     as: "images",
+    onDelete: "CASCADE",
   });
 
   ImageRel.belongsTo(Image, {
     foreignKey: "image_id",
     as: "image",
+    onDelete: "CASCADE",
   });
 };
