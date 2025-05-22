@@ -27,7 +27,7 @@ dbController.get("/api", async (req, res) => {
 
 dbController.get("/sync", async (req, res) => {
   try {
-    const resp = await sequelize.sync();
+    const resp = await sequelize.sync({ force: true });
     successResponse(res, "DB Synced", 200);
   } catch (err) {
     errorResponse(res, `Error in DB sync: ${err.message}`);
@@ -52,7 +52,7 @@ dbController.get("/seed", async (req, res) => {
 
     const files_seeded = [];
 
-    await sequelize.sync();
+    await sequelize.sync({ force: true });
 
     for (let item of files_to_seed) {
       files_seeded.push(await seedFromCsv(item.file, item.model));
