@@ -33,32 +33,32 @@ tagController.get(`/${url}/:slug`, async (req, res) => {
 
     const result = await model.findOne({
       where: { slug: slug },
-      attributes: getQueryAttributes(req.query, "name,slug"),
+      attributes: getQueryAttributes(req.query, "id,name,slug"),
       include: [
         {
           model: RecipeTag,
           as: "tags",
-          attributes: getQueryAttributes({}, "tag_id"),
+          attributes: getQueryAttributes({}, "id,tag_id"),
           include: [
             {
               model: Recipe,
               as: "recipe",
               attributes: getQueryAttributes(
                 req.query,
-                "name,slug,description,prep_time,cook_time,servings,carbs,protein,calories"
+                "id,name,slug,description,prep_time,cook_time,servings,carbs,protein,calories"
               ),
               include: [
                 {
                   model: ImageRel,
                   as: "images",
-                  attributes: getQueryAttributes({}, "recipe_id"),
+                  attributes: getQueryAttributes({}, "id,recipe_id"),
                   include: [
                     {
                       model: Image,
                       as: "image",
                       attributes: getQueryAttributes(
                         {},
-                        "filename, description, is_main"
+                        "id,filename, description, is_main"
                       ),
                     },
                   ],

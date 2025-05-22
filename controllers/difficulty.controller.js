@@ -12,7 +12,7 @@ const url = "difficulty";
 difficultyController.get(`/${url}`, async (req, res) => {
   try {
     const result = await model.findAll({
-      attributes: getQueryAttributes(req.query, "name,slug"),
+      attributes: getQueryAttributes(req.query, "id,name,slug"),
       limit: getQueryLimit(req.query),
     });
 
@@ -46,14 +46,14 @@ difficultyController.get(`/${url}/:slug`, async (req, res) => {
             {
               model: ImageRel,
               as: "images",
-              attributes: getQueryAttributes({}, "recipe_id"),
+              attributes: getQueryAttributes({}, "id,recipe_id"),
               include: [
                 {
                   model: Image,
                   as: "image",
                   attributes: getQueryAttributes(
                     {},
-                    "filename, description, is_main"
+                    "id,filename, description, is_main"
                   ),
                 },
               ],

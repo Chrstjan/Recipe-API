@@ -30,14 +30,14 @@ searchController.get(`/${url}/:param`, async (req, res) => {
         {
           model: ImageRel,
           as: "images",
-          attributes: getQueryAttributes({}, "recipe_id"),
+          attributes: getQueryAttributes({}, "id,recipe_id"),
           include: [
             {
               model: Image,
               as: "image",
               attributes: getQueryAttributes(
                 {},
-                "filename, description, is_main"
+                "id,filename, description, is_main"
               ),
             },
           ],

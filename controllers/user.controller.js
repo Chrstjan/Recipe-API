@@ -49,12 +49,12 @@ userController.get(`/${url}`, Authorize, async (req, res) => {
             {
               model: RecipeTag,
               as: "tags",
-              attributes: getQueryAttributes({}, "recipe_id"),
+              attributes: getQueryAttributes({}, "id,recipe_id"),
               include: [
                 {
                   model: Tag,
                   as: "tag",
-                  attributes: getQueryAttributes(req.query, "name,slug"),
+                  attributes: getQueryAttributes(req.query, "id,name,slug"),
                 },
               ],
             },

@@ -12,7 +12,7 @@ const url = "categories";
 categoryController.get(`/${url}`, async (req, res) => {
   try {
     const result = await model.findAll({
-      attributes: getQueryAttributes(req.query, "name,slug,image"),
+      attributes: getQueryAttributes(req.query, "id,name,slug,image"),
       limit: getQueryLimit(req.query),
     });
 
@@ -32,7 +32,7 @@ categoryController.get(`/${url}/:slug`, async (req, res) => {
 
     const result = await model.findOne({
       where: { slug: slug },
-      attributes: getQueryAttributes(req.query, "name,slug,image"),
+      attributes: getQueryAttributes(req.query, "id,name,slug,image"),
       include: [
         {
           model: Recipe,
@@ -46,14 +46,14 @@ categoryController.get(`/${url}/:slug`, async (req, res) => {
             {
               model: ImageRel,
               as: "images",
-              attributes: getQueryAttributes({}, "recipe_id"),
+              attributes: getQueryAttributes({}, "id,recipe_id"),
               include: [
                 {
                   model: Image,
                   as: "image",
                   attributes: getQueryAttributes(
                     {},
-                    "filename, description, is_main"
+                    "id,filename, description, is_main"
                   ),
                 },
               ],

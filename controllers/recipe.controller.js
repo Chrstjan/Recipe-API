@@ -30,34 +30,34 @@ recipeController.get(`/${url}`, async (req, res) => {
         {
           model: Category,
           as: "category",
-          attributes: getQueryAttributes(req.query, "name,slug"),
+          attributes: getQueryAttributes(req.query, "id,name,slug"),
         },
         {
           model: Cuisine,
           as: "cuisine",
-          attributes: getQueryAttributes(req.query, "name,slug"),
+          attributes: getQueryAttributes(req.query, "id,name,slug"),
         },
         {
           model: Difficulty,
           as: "difficulty",
-          attributes: getQueryAttributes(req.query, "name,slug"),
+          attributes: getQueryAttributes(req.query, "id,name,slug"),
         },
         {
           model: RecipeTag,
           as: "tags",
-          attributes: getQueryAttributes({}, "recipe_id"),
+          attributes: getQueryAttributes({}, "id,recipe_id"),
           include: [
             {
               model: Tag,
               as: "tag",
-              attributes: getQueryAttributes(req.query, "name,slug"),
+              attributes: getQueryAttributes(req.query, "id,name,slug"),
             },
           ],
         },
         {
           model: ImageRel,
           as: "images",
-          attributes: getQueryAttributes({}, "recipe_id"),
+          attributes: getQueryAttributes({}, "id,recipe_id"),
           include: [
             {
               model: Image,
@@ -96,46 +96,46 @@ recipeController.get(`/${url}/:slug`, async (req, res) => {
         {
           model: User,
           as: "creator",
-          attributes: getQueryAttributes({}, "username,avatar"),
+          attributes: getQueryAttributes({}, "id,username,avatar"),
         },
         {
           model: Category,
           as: "category",
-          attributes: getQueryAttributes(req.query, "name,slug"),
+          attributes: getQueryAttributes(req.query, "id,name,slug"),
         },
         {
           model: Cuisine,
           as: "cuisine",
-          attributes: getQueryAttributes(req.query, "name,slug"),
+          attributes: getQueryAttributes(req.query, "id,name,slug"),
         },
         {
           model: Difficulty,
           as: "difficulty",
-          attributes: getQueryAttributes(req.query, "name,slug"),
+          attributes: getQueryAttributes(req.query, "id,name,slug"),
         },
         {
           model: RecipeTag,
           as: "tags",
-          attributes: getQueryAttributes({}, "recipe_id"),
+          attributes: getQueryAttributes({}, "id,recipe_id"),
           include: [
             {
               model: Tag,
               as: "tag",
-              attributes: getQueryAttributes(req.query, "name,slug"),
+              attributes: getQueryAttributes(req.query, "id,name,slug"),
             },
           ],
         },
         {
           model: ImageRel,
           as: "images",
-          attributes: getQueryAttributes({}, "recipe_id"),
+          attributes: getQueryAttributes({}, "id,recipe_id"),
           include: [
             {
               model: Image,
               as: "image",
               attributes: getQueryAttributes(
                 {},
-                "filename, description, is_main"
+                "id,filename, description, is_main"
               ),
             },
           ],
@@ -143,12 +143,12 @@ recipeController.get(`/${url}/:slug`, async (req, res) => {
         {
           model: RecipeIngredient,
           as: "ingredients",
-          attributes: getQueryAttributes({}, "name,amount"),
+          attributes: getQueryAttributes({}, "id,name,amount"),
         },
         {
           model: RecipeInstruction,
           as: "instructions",
-          attributes: getQueryAttributes({}, "step"),
+          attributes: getQueryAttributes({}, "id,step"),
         },
         {
           model: Comment,
