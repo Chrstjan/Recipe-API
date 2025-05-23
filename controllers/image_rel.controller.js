@@ -4,6 +4,7 @@ import { successResponse, errorResponse } from "../utils/response.utils.js";
 import { Authorize, getUserFromToken } from "../utils/auth.utils.js";
 import { Recipe } from "../models/recipe.model.js";
 import { Image } from "../models/image.model.js";
+import { where } from "sequelize";
 
 export const imageRelController = express.Router();
 const url = "recipe-images";
@@ -40,6 +41,59 @@ imageRelController.post(`/${url}`, Authorize, async (req, res) => {
     );
   }
 });
+
+imageRelController.patch(
+  `/${url}/:recipeId/:id`,
+  Authorize,
+  async (req, res) => {
+    try {
+      const userId = await getUserFromToken(req, res);
+      const data = req.body;
+      const { recipeId, id } = req.params;
+
+      data.recipe_id = recipeId;
+
+      const recipe = await Recipe.findOne({
+        where: { id: recipeId, user_id: userId },
+      });
+
+      if (!recipe) {
+        return errorResponse(res, `Recipe with id: ${recipeId} not found`);
+      }
+
+      const image = await Image.findOne({
+        where: { id: data.image_id, user_id: userId },
+      });
+
+      if (!image) {
+        return errorResponse(res, `Image with id: ${data.image_id} not found`);
+      }
+
+      const [update] = await model.update(data, {
+        where: { id: id, recipe_id: data.recipe_id },
+      });
+
+      if (!update) {
+        errorResponse(
+          res,
+          `Error in updating image rel for recipe with id: ${recipeId}`
+        );
+      }
+
+      successResponse(
+        res,
+        { ...data },
+        "Recipe image rel updated successfully"
+      );
+    } catch (err) {
+      errorResponse(
+        res,
+        `Error in updating recipe image rel: ${err.message}`,
+        err
+      );
+    }
+  }
+);
 
 imageRelController.delete(
   `/${url}/:recipeId/:id`,

@@ -40,6 +40,51 @@ recipeIngredientController.post(`/${url}`, Authorize, async (req, res) => {
   }
 });
 
+recipeIngredientController.patch(
+  `/${url}/:recipeId/:id`,
+  Authorize,
+  async (req, res) => {
+    try {
+      const userId = await getUserFromToken(req, res);
+      const data = req.body;
+      const { recipeId, id } = req.params;
+
+      data.recipe_id = recipeId;
+
+      const recipe = await Recipe.findOne({
+        where: { id: recipeId, user_id: userId },
+      });
+
+      if (!recipe) {
+        errorResponse(res, `Recipe with id: ${recipeId} not found`);
+      }
+
+      const [update] = await model.update(data, {
+        where: { id: id, recipe_id: data.recipe_id },
+      });
+
+      if (!update) {
+        errorResponse(
+          res,
+          `Error in updating ingredient: ${id} for recipe with id: ${recipeId}`
+        );
+      }
+
+      successResponse(
+        res,
+        { ...data },
+        "Recipe ingredient updated successfully"
+      );
+    } catch (err) {
+      errorResponse(
+        res,
+        `Error in updating recipe ingredient: ${err.message}`,
+        err
+      );
+    }
+  }
+);
+
 recipeIngredientController.delete(
   `/${url}/:recipeId/:id`,
   Authorize,
