@@ -32,40 +32,34 @@ commentController.post(`/${url}`, Authorize, async (req, res) => {
   }
 });
 
-commentController.patch(
-  `/${url}/:recipeId/:id`,
-  Authorize,
-  async (req, res) => {
-    try {
-      const userId = await getUserFromToken(req, res);
-      const data = req.body;
-      const { recipeId, id } = req.params;
+commentController.patch(`/${url}`, Authorize, async (req, res) => {
+  try {
+    const userId = await getUserFromToken(req, res);
+    const data = req.body;
 
-      data.user_id = userId;
-      data.recipe_id = recipeId;
+    data.user_id = userId;
 
-      const recipe = await Recipe.findOne({
-        where: { id: recipeId, user_id: userId },
-      });
+    const recipe = await Recipe.findOne({
+      where: { id: data.recipe_id, user_id: userId },
+    });
 
-      if (!recipe) {
-        errorResponse(res, `Recipe with id: ${recipeId} not found`);
-      }
-
-      const [updated] = await model.update(data, {
-        where: { id: id, user_id: userId, recipe_id: data.recipe_id },
-      });
-
-      if (!updated) {
-        return errorResponse(res, `Comment with id: ${id} not found`);
-      }
-
-      successResponse(res, { ...data }, "Comment updated");
-    } catch (err) {
-      errorResponse(res, `Error in updating comment: ${err.message}`, err);
+    if (!recipe) {
+      errorResponse(res, `Recipe with id: ${data.recipe_id} not found`);
     }
+
+    const [updated] = await model.update(data, {
+      where: { id: data.id, user_id: userId, recipe_id: data.recipe_id },
+    });
+
+    if (!updated) {
+      return errorResponse(res, `Comment with id: ${data.id} not found`);
+    }
+
+    successResponse(res, { ...data }, "Comment updated");
+  } catch (err) {
+    errorResponse(res, `Error in updating comment: ${err.message}`, err);
   }
-);
+});
 
 commentController.delete(`/${url}/:id`, Authorize, async (req, res) => {
   try {

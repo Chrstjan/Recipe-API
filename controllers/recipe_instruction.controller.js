@@ -40,50 +40,43 @@ recipeInstructionController.post(`/${url}`, Authorize, async (req, res) => {
   }
 });
 
-recipeInstructionController.patch(
-  `/${url}/:recipeId/:id`,
-  Authorize,
-  async (req, res) => {
-    try {
-      const userId = await getUserFromToken(req, res);
-      const data = req.body;
-      const { recipeId, id } = req.params;
+recipeInstructionController.patch(`/${url}`, Authorize, async (req, res) => {
+  try {
+    const userId = await getUserFromToken(req, res);
+    const data = req.body;
 
-      data.recipe_id = recipeId;
+    const recipe = await Recipe.findOne({
+      where: { id: data.recipe_id, user_id: userId },
+    });
 
-      const recipe = await Recipe.findOne({
-        where: { id: recipeId, user_id: userId },
-      });
+    if (!recipe) {
+      errorResponse(res, `Recipe with id: ${data.recipe_id} not found`);
+    }
 
-      if (!recipe) {
-        errorResponse(res, `Recipe with id: ${recipeId} not found`);
-      }
+    const [update] = await model.update(data, {
+      where: { id: data.id, recipe_id: data.recipe_id },
+    });
 
-      const [update] = await model.update(data, {
-        where: { id: id, recipe_id: data.recipe_id },
-      });
-
-      if (!update) {
-        errorResponse(
-          res,
-          `Error in updating instruction: ${id} for recipe with id: ${recipeId}`
-        );
-      }
-
-      successResponse(
-        res,
-        { ...data },
-        "Recipe instruction updated successfully"
-      );
-    } catch (err) {
+    if (!update) {
       errorResponse(
         res,
-        `Error in updating recipe instruction: ${err.message}`,
-        err
+        `Error in updating instruction: ${data.id} for recipe with id: ${data.recipe_id}`
       );
     }
+
+    successResponse(
+      res,
+      { ...data },
+      "Recipe instruction updated successfully"
+    );
+  } catch (err) {
+    errorResponse(
+      res,
+      `Error in updating recipe instruction: ${err.message}`,
+      err
+    );
   }
-);
+});
 
 recipeInstructionController.delete(
   `/${url}/:recipeId/:id`,

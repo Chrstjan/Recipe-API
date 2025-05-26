@@ -207,21 +207,20 @@ recipeController.post(`/${url}`, Authorize, async (req, res) => {
   }
 });
 
-recipeController.patch(`/${url}/:id`, Authorize, async (req, res) => {
+recipeController.patch(`/${url}`, Authorize, async (req, res) => {
   try {
     const userId = await getUserFromToken(req, res);
     const data = req.body;
-    const { id } = req.params;
 
     data.user_id = userId;
     data.slug = data.name.replace(" ", "-").toLowerCase();
 
     const [updated] = await model.update(data, {
-      where: { id: id, user_id: data.user_id },
+      where: { id: data.id, user_id: data.user_id },
     });
 
     if (!updated) {
-      errorResponse(res, `Error in updating recipe with id: ${id}`);
+      errorResponse(res, `Error in updating recipe with id: ${data.id}`);
     }
 
     successResponse(res, { ...data }, "Recipe updated successfully");
