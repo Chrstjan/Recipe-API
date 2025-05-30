@@ -1,7 +1,11 @@
 import express from "express";
 import { Op } from "sequelize";
 import { Recipe as model } from "../models/recipe.model.js";
-import { getQueryAttributes, getQueryLimit } from "../utils/query.utils.js";
+import {
+  getQueryAttributes,
+  getQueryLimit,
+  getQueryOrder,
+} from "../utils/query.utils.js";
 import { successResponse, errorResponse } from "../utils/response.utils.js";
 import { ImageRel } from "../models/image_rel.model.js";
 import { Image } from "../models/image.model.js";
@@ -23,22 +27,27 @@ searchController.get(`/${url}/:param`, async (req, res) => {
       },
       attributes: getQueryAttributes(
         req.query,
-        "id,name,slug,description,prep_time,cook_time,servings,carbs,protein,calories"
+        "id,name,slug,description,prep_time,cook_time,servings,carbs,protein,calories",
+        "recipe"
       ),
-      limit: getQueryLimit(req.query),
+      order: getQueryOrder(req.query, "recipe"),
+      limit: getQueryLimit(req.query, "recipe"),
       include: [
         {
           model: ImageRel,
           as: "images",
-          attributes: getQueryAttributes({}, "id,recipe_id"),
+          attributes: getQueryAttributes({}, "id,recipe_id", "image_rel"),
+          order: getQueryOrder(req.query, "image_rel"),
           include: [
             {
               model: Image,
               as: "image",
               attributes: getQueryAttributes(
-                {},
-                "id,filename, description, is_main"
+                req.query,
+                "id,filename, description, is_main",
+                "image"
               ),
+              order: getQueryOrder(req.query, "image"),
             },
           ],
         },

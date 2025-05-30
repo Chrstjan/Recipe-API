@@ -146,8 +146,8 @@ export const setRelations = () => {
   RecipeTag.hasMany(Recipe, {
     foreignKey: "id",
     as: "recipes",
-    onDelete: "CASCADE"
-  })
+    onDelete: "CASCADE",
+  });
 
   //#endregion ingredients / instructions / tags
 
@@ -209,13 +209,13 @@ export const setRelations = () => {
 
   ImageRel.belongsTo(Image, {
     foreignKey: "image_id",
-    as: "image",
+    as: "image_rel",
     onDelete: "CASCADE",
   });
 
-  ImageRel.hasMany(Image, {
+  ImageRel.hasOne(Image, {
     foreignKey: "id",
-    as: "recipe_image",
-    onDelete: "CASCADE"
-  })
+    as: "image",
+    onDelete: "CASCADE",
+  });
 };

@@ -1,6 +1,10 @@
 import express from "express";
 import { Cuisine as model } from "../models/cuisine.model.js";
-import { getQueryAttributes, getQueryLimit } from "../utils/query.utils.js";
+import {
+  getQueryAttributes,
+  getQueryLimit,
+  getQueryOrder,
+} from "../utils/query.utils.js";
 import { successResponse, errorResponse } from "../utils/response.utils.js";
 import { Recipe } from "../models/recipe.model.js";
 import { ImageRel } from "../models/image_rel.model.js";
@@ -12,8 +16,9 @@ const url = "cuisine";
 cuisineController.get(`/${url}`, async (req, res) => {
   try {
     const result = await model.findAll({
-      attributes: getQueryAttributes(req.query, "id,name,slug"),
-      limit: getQueryLimit(req.query),
+      attributes: getQueryAttributes(req.query, "id,name,slug", "cuisine"),
+      order: getQueryOrder(req.query, "cuisine"),
+      limit: getQueryLimit(req.query, "cuisine"),
     });
 
     if (!result || result.length === 0) {
@@ -32,29 +37,40 @@ cuisineController.get(`/${url}/:slug`, async (req, res) => {
 
     const result = await model.findOne({
       where: { slug: slug },
-      attributes: getQueryAttributes(req.query, "name,slug"),
+      attributes: getQueryAttributes(req.query, "name,slug", "cuisine"),
+      order: getQueryOrder(req.query, "cuisine"),
+      limit: getQueryLimit(req.query, "cuisine"),
       include: [
         {
           model: Recipe,
           as: "recipes",
           attributes: getQueryAttributes(
             req.query,
-            "id,name,slug,description,prep_time,cook_time,servings,carbs,protein,calories"
+            "id,name,slug,description,prep_time,cook_time,servings,carbs,protein,calories",
+            "recipe"
           ),
-          limit: getQueryLimit(req.query),
+          order: getQueryOrder(req.query, "recipe"),
+          limit: getQueryLimit(req.query, "recipe"),
           include: [
             {
               model: ImageRel,
               as: "images",
-              attributes: getQueryAttributes({}, "id,recipe_id"),
+              attributes: getQueryAttributes(
+                req.query,
+                "id,recipe_id",
+                "image_rel"
+              ),
+              order: getQueryOrder(req.query, "image_rel"),
               include: [
                 {
                   model: Image,
                   as: "image",
                   attributes: getQueryAttributes(
-                    {},
-                    "id,filename, description, is_main"
+                    req.query,
+                    "id,filename, description, is_main",
+                    "image"
                   ),
+                  order: getQueryOrder(req.query, "image"),
                 },
               ],
             },
